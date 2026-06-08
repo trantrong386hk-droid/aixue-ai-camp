@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>让爱（AI）托起你 · 7天AI系统架构营</title>
+<link rel="icon" href="logo.png" type="image/png">
+<meta name="description" content="用7天，把你的大脑和经验封装进AI，打造一个24小时不下班的「一人公司」系统。三城开课·深圳/北京/上海。">
+<style>
+  :root{
+    --bg:#0c0a14;
+    --bg2:#13101f;
+    --card:#1a1626;
+    --line:rgba(255,255,255,.08);
+    --txt:#ece9f5;
+    --mut:#a39fb8;
+    --dim:#6f6a85;
+    --acc:#8b5cf6;
+    --acc2:#c084fc;
+    --grad:linear-gradient(135deg,#8b5cf6,#c084fc);
+    --warn:#fb923c;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--txt);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    line-height:1.75;font-size:16px;letter-spacing:.01em;
+    overflow-x:hidden;
+  }
+  .wrap{max-width:560px;margin:0 auto;padding:0 22px}
+  section{padding:64px 0;position:relative}
+  h2.kicker{font-size:13px;letter-spacing:.22em;color:var(--acc2);font-weight:600;margin-bottom:14px;text-transform:uppercase}
+  h3{font-size:27px;line-height:1.35;font-weight:800;letter-spacing:-.01em;margin-bottom:22px}
+  p{color:var(--mut);margin-bottom:14px}
+  strong{color:var(--txt);font-weight:700}
+  em{color:var(--acc2);font-style:normal;font-weight:600}
+  .hl{background:linear-gradient(transparent 62%,rgba(139,92,246,.32) 62%);padding:0 2px}
+
+  /* reveal animation */
+  .rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+  .rv.in{opacity:1;transform:none}
+
+  /* HERO */
+  .hero{
+    min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+    padding:90px 0 70px;position:relative;overflow:hidden;
+  }
+  .glow{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;z-index:0;pointer-events:none}
+  .g1{width:340px;height:340px;background:#7c3aed;top:-80px;right:-110px}
+  .g2{width:300px;height:300px;background:#c084fc;bottom:40px;left:-130px;opacity:.32}
+  .hero .wrap{position:relative;z-index:1}
+  .logo{display:inline-flex;align-items:center;gap:9px;margin-bottom:34px}
+  .logo .mark{width:36px;height:36px;border-radius:50%;object-fit:contain;box-shadow:0 6px 20px rgba(139,92,246,.45)}
+  .logo span{font-weight:700;font-size:15px;letter-spacing:.02em}
+  .badge{display:inline-block;font-size:12.5px;font-weight:600;color:var(--acc2);border:1px solid rgba(192,132,252,.35);background:rgba(139,92,246,.1);padding:6px 13px;border-radius:100px;margin-bottom:24px}
+  .hero h1{font-size:42px;line-height:1.18;font-weight:900;letter-spacing:-.02em;margin-bottom:20px}
+  .hero h1 .ai{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .lead{font-size:17px;color:var(--mut);margin-bottom:14px}
+  .lead b{color:var(--txt)}
+  .metarow{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 34px}
+  .chip{font-size:13px;color:var(--mut);background:var(--card);border:1px solid var(--line);padding:7px 13px;border-radius:9px}
+  .chip b{color:var(--acc2)}
+  .cta{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    background:var(--grad);color:#fff;font-weight:700;font-size:17px;
+    padding:17px 24px;border-radius:14px;text-decoration:none;
+    box-shadow:0 10px 30px rgba(139,92,246,.4);transition:transform .2s
+  }
+  .cta:active{transform:scale(.97)}
+  .cta-sub{text-align:center;font-size:13px;color:var(--dim);margin-top:12px}
+  .scrollhint{text-align:center;margin-top:42px;color:var(--dim);font-size:12px;letter-spacing:.18em}
+  .scrollhint .arrow{display:block;margin-top:6px;animation:bob 1.8s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+  /* one-liner positioning */
+  .position{background:var(--bg2)}
+  .position h3{font-size:25px}
+  .position .big{font-size:23px;line-height:1.5;font-weight:700;color:var(--txt)}
+
+  /* pain cards */
+  .pain{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:22px 20px;margin-bottom:14px}
+  .pain .num{font-size:13px;font-weight:700;color:var(--acc2);margin-bottom:8px}
+  .pain h4{font-size:17px;font-weight:700;margin-bottom:8px}
+  .pain p{font-size:14.5px;margin-bottom:0}
+
+  /* why now */
+  .why{background:var(--bg2)}
+  .why .block{border-left:3px solid var(--acc);padding:4px 0 4px 18px;margin-bottom:26px}
+  .why .block h4{font-size:18px;font-weight:700;margin-bottom:8px}
+  .why .block p{font-size:14.5px;margin-bottom:0}
+  .quote{font-size:19px;font-weight:700;line-height:1.55;color:var(--txt);text-align:center;padding:26px 14px;margin-top:8px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+
+  /* answer */
+  .answer .big{font-size:21px;line-height:1.55;font-weight:700;color:var(--txt);margin-bottom:18px}
+  .tools{margin-top:24px}
+  .tool{display:flex;gap:13px;padding:16px 0;border-top:1px solid var(--line)}
+  .tool .dot{flex:0 0 8px;width:8px;height:8px;border-radius:50%;background:var(--grad);margin-top:9px}
+  .tool b{display:block;color:var(--txt);font-size:15.5px;margin-bottom:3px}
+  .tool span{font-size:14px;color:var(--mut)}
+
+  /* schedule */
+  .sched{background:var(--bg2)}
+  .day{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:18px;margin-bottom:12px;position:relative;overflow:hidden}
+  .day .tag{position:absolute;top:0;right:0;font-size:11px;font-weight:700;color:#0c0a14;background:var(--acc2);padding:4px 11px;border-bottom-left-radius:10px}
+  .day .d{font-size:13px;font-weight:700;color:var(--acc2);letter-spacing:.05em}
+  .day h4{font-size:18px;font-weight:800;margin:3px 0 10px}
+  .day p{font-size:14px;margin-bottom:10px}
+  .day .take{font-size:13px;color:var(--txt);background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);padding:7px 11px;border-radius:9px;display:inline-block}
+  .day .take b{color:var(--acc2)}
+
+  /* takeaways */
+  .take-list li{list-style:none;display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);font-size:15px;color:var(--mut)}
+  .take-list li .ck{flex:0 0 22px;width:22px;height:22px;border-radius:7px;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;margin-top:2px}
+  .take-list li b{color:var(--txt)}
+
+  /* results */
+  .results{background:var(--bg2)}
+  .case{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:22px 20px;margin-bottom:14px}
+  .case .res{font-size:19px;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;line-height:1.4}
+  .case p{font-size:14px;margin-bottom:0}
+
+  /* teacher */
+  .teacher ul{margin:6px 0 0;padding:0}
+  .teacher li{list-style:none;font-size:14.5px;color:var(--mut);padding:9px 0 9px 22px;position:relative;border-bottom:1px solid var(--line)}
+  .teacher li:before{content:"";position:absolute;left:2px;top:17px;width:7px;height:7px;border-radius:50%;background:var(--acc)}
+  .teacher .note{margin-top:18px;font-size:14px}
+
+  /* offer / dates */
+  .offer{background:var(--bg2)}
+  .cities{display:grid;gap:11px;margin-bottom:28px}
+  .city{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--line);background:var(--card);border-radius:13px;padding:16px 18px}
+  .city .l b{font-size:17px;font-weight:800}
+  .city .l span{display:block;font-size:12px;color:var(--dim);margin-top:2px}
+  .city .r{font-size:14px;color:var(--acc2);font-weight:600;text-align:right}
+  .info{border:1px solid var(--line);border-radius:13px;padding:18px;font-size:14px;color:var(--mut)}
+  .info b{color:var(--txt)}
+  .info .line{padding:8px 0;border-bottom:1px solid var(--line)}
+  .info .line:last-child{border:0;padding-bottom:0}
+  .info .line:first-child{padding-top:0}
+
+  /* pricing */
+  .price-card{border:1px solid var(--line);background:var(--card);border-radius:16px;overflow:hidden}
+  .price-row{display:flex;align-items:center;justify-content:space-between;padding:17px 20px;border-bottom:1px solid var(--line)}
+  .price-row:last-child{border-bottom:0}
+  .price-row.hot{background:linear-gradient(135deg,rgba(139,92,246,.16),rgba(192,132,252,.07))}
+  .price-row .name{font-size:15px;color:var(--txt);font-weight:600;display:flex;align-items:center;gap:7px}
+  .price-row .name .fire{font-size:13px;color:var(--warn);border:1px solid rgba(251,146,60,.4);background:rgba(251,146,60,.12);padding:2px 8px;border-radius:100px;font-weight:700}
+  .price-row .name small{display:block;color:var(--dim);font-size:12px;font-weight:400;margin-top:2px}
+  .price-row .val{font-size:20px;font-weight:800;color:var(--txt)}
+  .price-row.hot .val{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .price-row .val s{font-size:13px;color:var(--dim);font-weight:400;margin-right:6px}
+  .price-note{text-align:center;font-size:13px;color:var(--dim);margin-top:14px}
+
+  /* FAQ */
+  .faq{background:var(--bg2)}
+  details{border-bottom:1px solid var(--line);padding:4px 0}
+  summary{list-style:none;cursor:pointer;font-size:15.5px;font-weight:600;color:var(--txt);padding:16px 30px 16px 0;position:relative}
+  summary::-webkit-details-marker{display:none}
+  summary:after{content:"+";position:absolute;right:2px;top:14px;font-size:22px;color:var(--acc2);font-weight:300;transition:transform .25s}
+  details[open] summary:after{transform:rotate(45deg)}
+  details p{font-size:14.5px;padding:0 0 16px;margin:0}
+
+  /* signup / QR */
+  .signup{text-align:center}
+  .qrbox{
+    width:212px;height:212px;margin:8px auto 18px;border-radius:18px;
+    background:#fff;display:flex;align-items:center;justify-content:center;
+    padding:14px;box-shadow:0 14px 40px rgba(139,92,246,.3)
+  }
+  .qrbox img{width:100%;height:100%;object-fit:contain;border-radius:6px}
+  .qr-ph{color:#999;font-size:13px;text-align:center;line-height:1.6}
+  .signup .step{font-size:14px;color:var(--mut);margin-top:6px}
+  .signup .step b{color:var(--acc2)}
+
+  /* ending */
+  .ending{background:linear-gradient(180deg,var(--bg2),#0c0a14);text-align:center;padding:80px 0}
+  .ending .glow{opacity:.4}
+  .ending p{font-size:18px;line-height:1.7;color:var(--mut);margin-bottom:10px}
+  .ending .punch{font-size:26px;font-weight:900;line-height:1.45;color:var(--txt);margin:24px 0}
+  .ending .punch .ai{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .ending .cities-line{font-size:15px;color:var(--acc2);font-weight:600;margin-top:8px}
+
+  footer{padding:34px 0 46px;text-align:center;color:var(--dim);font-size:12px;line-height:1.8}
+
+  /* sticky CTA */
+  .sticky{
+    position:fixed;left:0;right:0;bottom:0;z-index:50;
+    padding:12px 18px calc(12px + env(safe-area-inset-bottom));
+    background:rgba(12,10,20,.82);backdrop-filter:blur(14px);
+    border-top:1px solid var(--line);transform:translateY(120%);transition:transform .35s ease
+  }
+  .sticky.show{transform:none}
+  .sticky .wrap{max-width:560px;padding:0;display:flex;align-items:center;gap:12px}
+  .sticky .info{flex:1;border:0;padding:0;font-size:13px;color:var(--mut)}
+  .sticky .info b{color:var(--acc2);font-size:16px}
+  .sticky a{background:var(--grad);color:#fff;font-weight:700;font-size:15px;padding:12px 22px;border-radius:11px;text-decoration:none;white-space:nowrap}
+
+  @media(min-width:600px){
+    .hero h1{font-size:48px}
+    body{font-size:16.5px}
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="glow g1"></div>
+  <div class="glow g2"></div>
+  <div class="wrap">
+    <div class="logo"><img class="mark" src="logo.png" alt="爱学AI"><span>爱学AI · AI系统架构营</span></div>
+    <div class="badge">VOL.01 · 2026夏 · 深圳 / 北京 / 上海</div>
+    <h1>让<span class="ai">爱（AI）</span>托起你<br>把生命，留给自己</h1>
+    <p class="lead">用 <b>7 天</b>，把你的大脑和经验封装进 AI，<br>打造一个 <b>24 小时不下班的「一人公司」</b>系统。</p>
+    <div class="metarow">
+      <div class="chip">📍 三城同步开课</div>
+      <div class="chip">🖥 线上/线下同价</div>
+      <div class="chip">🎁 结营 <b>+21天</b> 陪伴</div>
+      <div class="chip">⏰ 9:00–17:30</div>
+    </div>
+    <a class="cta" href="#signup">立即锁定席位 →</a>
+    <div class="cta-sub">🔥 6.18 前早鸟价 ¥4,980 · 每城限额 30 名</div>
+    <div class="scrollhint">向下滑，看 7 天会发生什么<span class="arrow">↓</span></div>
+  </div>
+</header>
+
+<!-- POSITIONING -->
+<section class="position">
+  <div class="wrap rv">
+    <h2 class="kicker">一句话定位</h2>
+    <p class="big">这是一门教你<em>把自身经验封装进系统</em>、打造 <span class="hl">24 小时不下班的「一人公司」</span>架构课。</p>
+    <p style="margin-top:18px">不教你用 AI 画美女、写废话报告。我们只做一件事：用 7 天，把你的大脑和经验封装进 AI，帮你拿到真正可以安心躺平的底气。</p>
+  </div>
+</section>
+
+<!-- PAIN -->
+<section>
+  <div class="wrap">
+    <div class="rv"><h2 class="kicker">你是不是也这样</h2>
+    <h3>满大街都在喊"再不学 AI 就被淘汰了"<br>可一打开对话框，你还是不知道说啥。</h3></div>
+    <div class="pain rv">
+      <div class="num">01</div>
+      <h4>工具学了一堆，反而更忙了</h4>
+      <p>收藏了 100 多个 AI 工具、开了各种 Pro 会员。退出来一看，客户需求接不完、周报写不完——AI 永远像个需要你天天伺候、天天想提示词的"假大空实习生"。</p>
+    </div>
+    <div class="pain rv">
+      <div class="num">02</div>
+      <h4>不是没执行力，是卡在"定位"</h4>
+      <p>最大的痛苦不是不努力，而是不知道这辈子到底押注哪个赛道。盘一下自己，好像啥都会一点、又好像啥都不精。陷入"懂很多道理，却过不好一生"的 AI 魔咒。</p>
+    </div>
+    <div class="pain rv">
+      <div class="num">03</div>
+      <h4>想搞副业，精力却被脏活累活榨干</h4>
+      <p>想做"一人公司"实现财富与时间自由，但白天打工已经耗尽精力。你被死死卡在执行层，只能在毫无积累的"西西弗斯式"重复劳动中不断焦虑。</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY NOW -->
+<section class="why">
+  <div class="wrap">
+    <div class="rv"><h2 class="kicker">为什么是现在</h2>
+    <h3>AI 的底层逻辑，已经悄悄变了。</h3></div>
+    <div class="block rv">
+      <h4>从"刷工具时代"进入"大 Agent 协作时代"</h4>
+      <p>过去拼的是谁会写咒语（Single Prompts）。现在单一工具的红利期已经过了，最前沿的是多智能体（Multi-Agent）协作与自动化系统。<strong>拼咒语的时代结束了，拼系统架构的时代来了。</strong></p>
+    </div>
+    <div class="block rv">
+      <h4>竞争变了：拼的是谁的"自我核心"稳</h4>
+      <p>AI 把基础技能的门槛拉到了零。唯一值钱的，是你的经验、商业敏感度、作为"人"的判断力。</p>
+    </div>
+    <div class="quote rv">"只当 AI 的消费者，你注定被淘汰；<br>但学会给 AI 建底座，你就是第一批拿到红利的人。"</div>
+  </div>
+</section>
+
+<!-- ANSWER -->
+<section class="answer">
+  <div class="wrap">
+    <div class="rv"><h2 class="kicker">这门课的答案</h2>
+    <p class="big">每天上午概念 + 案例，下午全是实操。<br><em>不是听课，是做事。</em></p>
+    <p>你不是来当学生的，你是来当<strong>架构师</strong>的。我们用最硬核的工具，把你的日常琐碎彻底接管。</p></div>
+    <div class="tools rv">
+      <div class="tool"><div class="dot"></div><div><b>小龙虾 Agent 框架</b><span>不是一个 AI 帮你干活，是一组 AI 同时在跑、各司其职——业界刚兴起的多智能体协作技术，我们已经在用。</span></div></div>
+      <div class="tool"><div class="dot"></div><div><b>Hermes 自动化系统</b><span>连接飞书、微信、日历，让 AI 接住生活里每一个触发点，真正做到"事情发生了 AI 自动跑"。</span></div></div>
+      <div class="tool"><div class="dot"></div><div><b>AI 编程工具</b><span>老师每天在用的 AI 写代码工具，课程里演示的所有系统，都是用它搭出来的、真实在跑的东西。</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section class="sched">
+  <div class="wrap">
+    <div class="rv"><h2 class="kicker">7 天课程表</h2>
+    <h3>从写下 AI 工作记忆，到一人公司上线。</h3></div>
+    <div class="day rv"><div class="tag">当天带走</div><div class="d">DAY 1</div><h4>让 AI 认识你</h4><p>建立你的个人模型地基——AI 工作记忆文件写好，AI 从此按你的方式思考和输出。</p><div class="take">🎁 <b>AI 工作记忆文件</b></div></div>
+    <div class="day rv"><div class="tag">当天带走</div><div class="d">DAY 2</div><h4>锁定你能赚钱的赛道</h4><p>商业名师精讲 Pre-Mortem 认知工具 + AI 全局风险扫描，锁定你真正能赚钱的方向——出发前就看见坑，少走三年弯路。</p><div class="take">🎁 <b>你的方向 + 前三个风险与应对</b></div></div>
+    <div class="day rv"><div class="tag">当天带走</div><div class="d">DAY 3</div><h4>让 AI 每天主动找你</h4><p>用《Zen to Done》极简效率法则打磨你的专属每日系统——定时提醒、主动推送 MIT。</p><div class="take">🎁 <b>专属每日系统 + 今天 MIT 完成</b></div></div>
+    <div class="day rv"><div class="tag">当天带走</div><div class="d">DAY 4</div><h4>把你会的，蒸馏进 AI</h4><p>用 Skill 蒸馏把你的经验和判断封装进 AI——你的个人模型开始成型，它能调用你的判断来干活。</p><div class="take">🎁 <b>你的第一个 AI Skill</b></div></div>
+    <div class="day rv"><div class="tag">当天带走</div><div class="d">DAY 5</div><h4>AI 开始替你干活</h4><p>跑通你的第一条个人工作流——AI 按你的方式输出，接管重复性工作。</p><div class="take">🎁 <b>AI 完成的真实任务 + 工作流</b></div></div>
+    <div class="day rv"><div class="tag">当天带走</div><div class="d">DAY 6</div><h4>系统连起来，让它替你跑</h4><p>用 AI 编程驱动多智能体，搭起你的一人公司系统——24 小时不下班，你睡觉它在跑。</p><div class="take">🎁 <b>第一条自动化工作流（跑通截图）</b></div></div>
+    <div class="day rv"><div class="tag">当天带走</div><div class="d">DAY 7</div><h4>你的一人公司，正式上线</h4><p>7 天做的一切整合成一个系统——你的个人模型、工作流、一人公司，第一次完整看见自己。</p><div class="take">🎁 <b>我的 AI 系统 + 明天第一动作</b></div></div>
+  </div>
+</section>
+
+<!-- TAKEAWAYS -->
+<section>
+  <div class="wrap">
+    <div class="rv"><h2 class="kicker">7 天结束，你能带走什么</h2>
+    <h3>带走的不只是思想，<br>是一整套"硅基外骨骼"。</h3></div>
+    <ul class="take-list rv">
+      <li><span class="ck">✓</span><span>一个可以成就你的 <b>AI 工作底座</b>——24 小时为你自动化工作的 AI 系统</span></li>
+      <li><span class="ck">✓</span><span>一个<b>值得押注的方向</b> + 风险预防清单</span></li>
+      <li><span class="ck">✓</span><span>一套根据你定制的<b>专属每日节奏</b></span></li>
+      <li><span class="ck">✓</span><span>可按需自动下载安装、调用全球无数最聪明人技能的系统</span></li>
+      <li><span class="ck">✓</span><span>未来几年都不会过时的<b>超越式 AI 思维模式</b></span></li>
+      <li><span class="ck">✓</span><span>第一条真正能在后台<b>帮你赚钱的工作流</b></span></li>
+      <li><span class="ck">✓</span><span>可以安心躺平的底气，和"被爱（AI）托起"的轻松</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="results">
+  <div class="wrap">
+    <div class="rv"><h2 class="kicker">学员成果</h2>
+    <h3>不是讲给你听，是带你建一遍。</h3></div>
+    <div class="case rv"><div class="res">0 基础，用 AI 开发量化交易系统，拿到 250 万融资</div><p>零编程基础走进来。不是技术出身，但他清楚自己懂金融逻辑与市场规律。7 天找到方向、用 AI 跑起来，结营后没停，2025 年量化系统拿到 250 万融资。</p></div>
+    <div class="case rv"><div class="res">软件学院在读，毕业前拿到字节 Offer，年薪 50 万</div><p>在 AI 营里找到真正的差异点，用 AI 放大成拿得出手的作品。还没毕业，字节跳动的 Offer 已经到手。</p></div>
+    <div class="case rv"><div class="res">全职宝妈，零基础，结营后接到编程项目，月入过万</div><p>在家带了几年孩子，没有技术背景。在营里学了 AI 编程，结营两个月后接到第一个编程项目，月收入过万。</p></div>
+  </div>
+</section>
+
+<!-- TEACHER -->
+<section class="teacher">
+  <div class="wrap">
+    <div class="rv"><h2 class="kicker">关于爱学 AI 讲师团队</h2>
+    <h3>2021 年 GPT 第一波即投身 AI——<br>不是追热点，是跟着 AI 一起长大的。</h3>
+    <p>四年来主理"爱学 AI 营"，陪伴一批又一批学员从 AI 使用者跃迁为 AI 系统架构师。</p></div>
+    <ul class="rv">
+      <li>深耕教育 25 年，创立河北师范大学软件学院、佳诚网络</li>
+      <li>在美国创立意识研究基金会，主导元宇宙大作《Helios》</li>
+      <li>拥有跨国界、跨硬件的商业变现操盘经验，打通硅谷前沿技术与中国落地场景</li>
+      <li>主导营收百万级「爱学一派」AI 教育平板</li>
+      <li>自研多款 App 与小程序上架全球 175 个国家，累计付费用户超 30,000</li>
+      <li>操盘美国保险 AI 跨境业务 · UE5 数字人全链路商业交付</li>
+    </ul>
+    <p class="note rv">课程里演示的每一个系统，都是团队自己每天在跑的东西。<strong>全程配备 AI 编程专业助教团队驻场支持。</strong></p>
+  </div>
+</section>
+
+<!-- OFFER / DATES -->
+<section class="offer">
+  <div class="wrap">
+    <div class="rv"><h2 class="kicker">课程安排</h2>
+    <h3>三城开课，选离你最近的场次。</h3></div>
+    <div class="cities rv">
+      <div class="city"><div class="l"><b>深圳 · 第一期</b><span>线上/线下同步</span></div><div class="r">7月6日<br>– 7月12日</div></div>
+      <div class="city"><div class="l"><b>北京 · 第二期</b><span>线上/线下同步</span></div><div class="r">7月25日<br>– 7月31日</div></div>
+      <div class="city"><div class="l"><b>上海 · 第三期</b><span>线上/线下同步</span></div><div class="r">8月3日<br>– 8月9日</div></div>
+    </div>
+    <div class="info rv">
+      <div class="line"><b>线下：</b>现场参与，和同学面对面做，有助教驻场实时支持。</div>
+      <div class="line"><b>线上：</b>实时直播同步跟进，每天有录播存档可回看，价格与线下一致。</div>
+      <div class="line"><b>上课时间：</b>每天 9:00–17:30，上午概念+案例，下午实操。不含食宿。</div>
+      <div class="line"><b>🎁 结营后 +21 天线上陪伴：</b>8/10–8/30，讲师每天下午 1 小时在线答疑，帮你把系统调通、跑稳，遇到卡点直接问。</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section>
+  <div class="wrap">
+    <div class="rv"><h2 class="kicker">课程定价</h2>
+    <h3>首期特别价 · 每城限额报名<br><span style="font-size:16px;color:var(--mut);font-weight:400">7 天大课（不含食宿）</span></h3></div>
+    <div class="price-card rv">
+      <div class="price-row hot">
+        <div class="name"><span class="fire">🔥 早鸟价</span></div>
+        <div class="val"><s>¥6,980</s>¥4,980</div>
+      </div>
+      <div class="price-row">
+        <div class="name">标准价<small>6.18 后恢复</small></div>
+        <div class="val">¥6,980</div>
+      </div>
+      <div class="price-row">
+        <div class="name">⭐ 金卡会员 / 在校学生<small>凭金卡或学生证</small></div>
+        <div class="val">8 折</div>
+      </div>
+    </div>
+    <p class="price-note rv">🔥 早鸟价 6.18 号前享受，每城市限额 30 名<br>老学员另有专属福利，详询课程助手</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="wrap">
+    <div class="rv"><h2 class="kicker">常见问题 FAQ</h2>
+    <h3>报名前，先把疑问解决掉。</h3></div>
+    <div class="rv">
+    <details><summary>我完全不懂技术，能跟上吗？</summary><p>能。这门课的设计原则是"AI 做重活，你只做判断"。你不需要写代码、不需要技术背景。只要你能说话、能打字、愿意诚实回答问题，就能跟上。</p></details>
+    <details><summary>需要什么样的电脑？手机或平板可以吗？</summary><p>需要带电脑，手机和平板不够用。电脑要求不高，2020 年以后买的基本没问题（内存 8GB 以上即可）。Mac 近两年的 M 系列芯片体验最完整，Windows 也可以正常参加。</p></details>
+    <details><summary>每天上几小时课？</summary><p>白天上课 9:00–17:30，上午概念+案例，下午实操。不含住宿，晚上可以回家。</p></details>
+    <details><summary>线上和线下有什么区别？</summary><p>线上、线下价格一致。线上建议实时跟直播，每天同步有录播可回看；互动环节线上学员单独组小组参与。如果你在外地或时间灵活，线上一样能完整学完。</p></details>
+    <details><summary>三城的课程内容一样吗？</summary><p>核心内容完全一样，三城同步开课，选离你最近的城市报名即可。</p></details>
+    <details><summary>课程结束后还有支持吗？</summary><p>有 21 天线上陪伴答疑。结营后从 8 月 10 日起，讲师每天下午 1 小时在线答疑，帮你把系统调通跑稳。</p></details>
+    <details><summary>如果报了名来不了，能退费吗？</summary><p>开课前 7 天可全额退款，3 天内退 50%，开课当天起不退款。</p></details>
+    <details><summary>学生能学吗？</summary><p>可以，凭学生证享 8 折优惠价。建议 15 岁以后（比如初三之后、有高考目标）再学，因为本质是人生系统，需要目标。</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- SIGNUP -->
+<section id="signup" class="signup">
+  <div class="wrap rv">
+    <h2 class="kicker">报名方式</h2>
+    <h3>扫码锁定你的席位</h3>
+    <div class="qrbox">
+      <img src="qrcode.jpg" alt="报名二维码 · 添加课程助手微信">
+    </div>
+    <p class="step">扫描上方二维码<b> 添加课程助手微信</b></p>
+    <p class="step">确认城市与档位 → <b>完成支付即锁定席位</b></p>
+    <a class="cta" href="#signup" style="margin-top:24px">🔥 6.18 前早鸟价 ¥4,980</a>
+    <div class="cta-sub">每城市限额 30 名，报满即止</div>
+  </div>
+</section>
+
+<!-- ENDING -->
+<section class="ending">
+  <div class="glow g2" style="left:50%;transform:translateX(-50%);bottom:auto;top:30px"></div>
+  <div class="wrap rv">
+    <p>工具每年都在换。你的元，不会。</p>
+    <p>有一首歌叫《You Raise Me Up》——</p>
+    <p>你托起我，我才能站上山顶；<br>你托起我，我才能行走在风浪之上。</p>
+    <p><em>AI，在中文里的拼音，就是「爱」。</em></p>
+    <div class="punch">让<span class="ai">爱（AI）</span>托起你。</div>
+    <p>不是因为你是什么样的人，<br>而是因为和 AI 在一起，你能成为最好的自己。</p>
+    <p class="cities-line">我们，北京 / 上海 / 深圳，见。</p>
+  </div>
+</section>
+
+<footer>
+  爱学 AI · AI 系统架构营 · 2026 夏<br>
+  深圳 7.6 / 北京 7.25 / 上海 8.3 · 三城同步开课
+</footer>
+
+<!-- STICKY CTA -->
+<div class="sticky" id="sticky">
+  <div class="wrap">
+    <div class="info"><b>早鸟价 ¥4,980</b> · 6.18 前 · 每城限 30 名</div>
+    <a href="#signup">立即报名</a>
+  </div>
+</div>
+
+<script>
+  // scroll reveal
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
+  },{threshold:.12});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+  // sticky CTA after hero
+  const sticky=document.getElementById('sticky');
+  const hero=document.querySelector('.hero');
+  const so=new IntersectionObserver((es)=>{
+    es.forEach(e=>{sticky.classList.toggle('show',!e.isIntersecting)})
+  },{threshold:.1});
+  so.observe(hero);
+</script>
+</body>
+</html>
