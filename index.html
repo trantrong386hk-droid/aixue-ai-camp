@@ -196,6 +196,17 @@
   .sticky .info b{color:var(--acc2);font-size:16px}
   .sticky a{background:var(--grad);color:#fff;font-weight:700;font-size:15px;padding:12px 22px;border-radius:11px;text-decoration:none;white-space:nowrap}
 
+  /* media */
+  .media{width:100%;display:block;border-radius:14px;border:1px solid var(--line);margin-bottom:10px}
+  .cap{font-size:12px;color:var(--dim);text-align:center;margin:0 0 24px}
+  .banner{width:100%;border-radius:16px;border:1px solid var(--line);display:block;margin-bottom:8px}
+  .proof{margin-top:26px}
+  .proof .media{margin-bottom:6px}
+  .case .media{margin:0 0 14px;border-radius:11px}
+  .vid{width:100%;border-radius:16px;border:1px solid var(--line);display:block;background:#000;box-shadow:0 14px 40px rgba(139,92,246,.22)}
+  .videowrap{position:relative}
+  .outro{margin-top:24px}
+  .outro video{width:100%;border-radius:16px;border:1px solid var(--line);display:block}
   @media(min-width:600px){
     .hero h1{font-size:48px}
     body{font-size:16.5px}
@@ -285,6 +296,30 @@
       <div class="tool"><div class="dot"></div><div><b>Hermes 自动化系统</b><span>连接飞书、微信、日历，让 AI 接住生活里每一个触发点，真正做到"事情发生了 AI 自动跑"。</span></div></div>
       <div class="tool"><div class="dot"></div><div><b>AI 编程工具</b><span>老师每天在用的 AI 写代码工具，课程里演示的所有系统，都是用它搭出来的、真实在跑的东西。</span></div></div>
     </div>
+    <div class="proof rv">
+      <p style="margin:30px 0 14px;font-size:14px;color:var(--acc2);font-weight:600">▎ 这些都是真实在跑的系统，不是概念图：</p>
+      <img class="media" src="img/proof1.jpg" alt="AI自动发布自媒体系统" loading="lazy">
+      <p class="cap">① 自动发布自媒体内容的工作流</p>
+      <img class="media" src="img/proof2.jpg" alt="AI工作日报系统" loading="lazy">
+      <p class="cap">② 每天自动生成的工作日报系统</p>
+      <img class="media" src="img/proof3.jpg" alt="AI投流复盘系统" loading="lazy">
+      <p class="cap">③ 自动跑的投流复盘系统</p>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO DEMO -->
+<section class="sched" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="rv"><h2 class="kicker">看看 AI 实际在干什么</h2>
+    <h3>我雇了一个<br>24 小时不下班的 AI 助理。</h3>
+    <p style="margin-bottom:20px">这不是想象。下面是一个真实在后台跑的 AI 助理——你睡觉，它还在替你干活。这，就是 7 天后你能带走的东西。</p></div>
+    <div class="videowrap rv">
+      <video class="vid" controls preload="none" playsinline poster="img/demo-poster.jpg">
+        <source src="img/demo.mp4" type="video/mp4">
+        你的浏览器不支持视频播放。
+      </video>
+    </div>
   </div>
 </section>
 
@@ -325,9 +360,11 @@
   <div class="wrap">
     <div class="rv"><h2 class="kicker">学员成果</h2>
     <h3>不是讲给你听，是带你建一遍。</h3></div>
-    <div class="case rv"><div class="res">0 基础，用 AI 开发量化交易系统，拿到 250 万融资</div><p>零编程基础走进来。不是技术出身，但他清楚自己懂金融逻辑与市场规律。7 天找到方向、用 AI 跑起来，结营后没停，2025 年量化系统拿到 250 万融资。</p></div>
-    <div class="case rv"><div class="res">软件学院在读，毕业前拿到字节 Offer，年薪 50 万</div><p>在 AI 营里找到真正的差异点，用 AI 放大成拿得出手的作品。还没毕业，字节跳动的 Offer 已经到手。</p></div>
-    <div class="case rv"><div class="res">全职宝妈，零基础，结营后接到编程项目，月入过万</div><p>在家带了几年孩子，没有技术背景。在营里学了 AI 编程，结营两个月后接到第一个编程项目，月收入过万。</p></div>
+    <div class="case rv"><div class="res">0 基础，用 AI 开发量化交易系统，拿到 250 万融资</div><img class="media" src="img/poster250.jpg" alt="学员案例·250万融资" loading="lazy"><p>零编程基础走进来。不是技术出身，但他清楚自己懂金融逻辑与市场规律。7 天找到方向、用 AI 跑起来，结营后没停，2025 年量化系统拿到 250 万融资。</p></div>
+    <div class="case rv"><div class="res">软件学院在读，毕业前拿到字节 Offer，年薪 50 万</div><img class="media" src="img/appstore.jpg" alt="学员作品·AppStore作品集" loading="lazy"><p>在 AI 营里找到真正的差异点，用 AI 放大成拿得出手的作品。还没毕业，字节跳动的 Offer 已经到手。</p></div>
+    <div class="case rv"><div class="res">全职宝妈，零基础，结营后接到编程项目，月入过万</div><img class="media" src="img/baoma.jpg" alt="学员案例·宝妈作品" loading="lazy"><p>在家带了几年孩子，没有技术背景。在营里学了 AI 编程，结营两个月后接到第一个编程项目，月收入过万。</p></div>
+    <img class="banner rv" src="img/works.jpg" alt="学员优秀作业展播" loading="lazy" style="margin-top:6px">
+    <p class="cap rv">往期学员优秀作业展播</p>
   </div>
 </section>
 
@@ -337,6 +374,8 @@
     <div class="rv"><h2 class="kicker">关于爱学 AI 讲师团队</h2>
     <h3>2021 年 GPT 第一波即投身 AI——<br>不是追热点，是跟着 AI 一起长大的。</h3>
     <p>四年来主理"爱学 AI 营"，陪伴一批又一批学员从 AI 使用者跃迁为 AI 系统架构师。</p></div>
+    <img class="banner rv" src="img/teaching.jpg" alt="团队带教现场" loading="lazy">
+    <p class="cap rv">讲师团队 · 带教现场</p>
     <ul class="rv">
       <li>深耕教育 25 年，创立河北师范大学软件学院、佳诚网络</li>
       <li>在美国创立意识研究基金会，主导元宇宙大作《Helios》</li>
@@ -365,6 +404,10 @@
       <div class="line"><b>上课时间：</b>每天 9:00–17:30，上午概念+案例，下午实操。不含食宿。</div>
       <div class="line"><b>🎁 结营后 +21 天线上陪伴：</b>8/10–8/30，讲师每天下午 1 小时在线答疑，帮你把系统调通、跑稳，遇到卡点直接问。</div>
     </div>
+    <img class="banner rv" src="img/classroom.jpg" alt="线下课堂现场" loading="lazy" style="margin-top:24px">
+    <p class="cap rv">线下课堂 · 实操现场</p>
+    <img class="banner rv" src="img/group2025.jpg" alt="往期结营合影" loading="lazy">
+    <p class="cap rv">2025 创富营 · 结营合影</p>
   </div>
 </section>
 
@@ -435,6 +478,11 @@
     <div class="punch">让<span class="ai">爱（AI）</span>托起你。</div>
     <p>不是因为你是什么样的人，<br>而是因为和 AI 在一起，你能成为最好的自己。</p>
     <p class="cities-line">我们，北京 / 上海 / 深圳，见。</p>
+    <div class="outro rv">
+      <video controls preload="none" playsinline poster="logo.png">
+        <source src="img/outro.mp4" type="video/mp4">
+      </video>
+    </div>
   </div>
 </section>
 
