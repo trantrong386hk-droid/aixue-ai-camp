@@ -212,13 +212,57 @@
   .pain,.day,.case,.city,.price-card{box-shadow:var(--shadow)}
   .info{background:var(--card);box-shadow:var(--shadow)}
   .media,.banner{box-shadow:var(--shadow)}
+
+  /* ===== MOTION ===== */
+  /* scroll progress */
+  .progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--grad);z-index:99;border-radius:0 3px 3px 0;box-shadow:0 0 10px rgba(124,92,240,.5);transition:width .08s linear}
+  /* drifting glows */
+  @keyframes drift1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-26px,30px) scale(1.12)}}
+  @keyframes drift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-24px) scale(1.15)}}
+  .g1{animation:drift1 13s ease-in-out infinite}
+  .g2{animation:drift2 16s ease-in-out infinite}
+  /* shimmer gradient text */
+  @keyframes shimmer{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+  .hero h1 .ai,.case .res,.ending .punch .ai{background-size:200% auto;animation:shimmer 4.5s linear infinite}
+  /* CTA breathe + shine */
+  @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+  @keyframes shine{0%{left:-60%}60%,100%{left:140%}}
+  .cta{position:relative;overflow:hidden;animation:breathe 3.2s ease-in-out infinite}
+  .cta:before{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-18deg);animation:shine 4.5s ease-in-out infinite}
+  /* card hover/tap lift */
+  .pain,.day,.case,.city,.tool,.media,.banner{transition:transform .28s cubic-bezier(.2,.7,.3,1),box-shadow .28s}
+  .pain:hover,.day:hover,.case:hover,.city:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(91,60,200,.16)}
+  .media:hover,.banner:hover{transform:scale(1.012)}
+  /* floating chips */
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+  .chip{animation:floaty 4s ease-in-out infinite}
+  .chip:nth-child(2){animation-delay:.5s}.chip:nth-child(3){animation-delay:1s}.chip:nth-child(4){animation-delay:1.5s}
+  /* scroll arrow already bobs */
+  .day .take{transition:transform .25s}
+  .day:hover .take{transform:translateX(4px)}
+
+  /* stats band */
+  .stats{background:var(--bg2);padding:48px 0}
+  .stats .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 14px;text-align:center;box-shadow:var(--shadow);transition:transform .28s}
+  .stat:hover{transform:translateY(-5px)}
+  .stat .n{font-size:34px;font-weight:900;line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.02em}
+  .stat .n i{font-size:17px;font-style:normal;font-weight:800;margin-left:2px}
+  .stat .lbl{font-size:13px;color:var(--mut);margin-top:8px;font-weight:500}
+
+  @media(prefers-reduced-motion:reduce){
+    .g1,.g2,.cta,.cta:before,.chip,.hero h1 .ai,.case .res,.ending .punch .ai{animation:none!important}
+    .rv{transition:opacity .4s ease!important;transform:none!important}
+  }
   @media(min-width:600px){
+    .stats .grid{grid-template-columns:repeat(4,1fr)}
     .hero h1{font-size:48px}
     body{font-size:16.5px}
   }
 </style>
 </head>
 <body>
+<div class="progress" id="progress"></div>
 
 <!-- HERO -->
 <header class="hero">
@@ -247,6 +291,18 @@
     <h2 class="kicker">一句话定位</h2>
     <p class="big">这是一门教你<em>把自身经验封装进系统</em>、打造 <span class="hl">24 小时不下班的「一人公司」</span>架构课。</p>
     <p style="margin-top:18px">不教你用 AI 画美女、写废话报告。我们只做一件事：用 7 天，把你的大脑和经验封装进 AI，帮你拿到真正可以安心躺平的底气。</p>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="wrap">
+    <div class="grid">
+      <div class="stat rv"><div class="n"><span class="num" data-to="4">0</span><i>年</i></div><div class="lbl">深耕 AI 教育</div></div>
+      <div class="stat rv"><div class="n"><span class="num" data-to="30000">0</span><i>+</i></div><div class="lbl">累计付费用户</div></div>
+      <div class="stat rv"><div class="n"><span class="num" data-to="175">0</span><i>国</i></div><div class="lbl">App 上架国家</div></div>
+      <div class="stat rv"><div class="n"><span class="num" data-to="3">0</span><i>城</i></div><div class="lbl">2026 同步开课</div></div>
+    </div>
   </div>
 </section>
 
@@ -500,11 +556,43 @@
 </div>
 
 <script>
+  // staggered reveal: delay each .rv by its index among rv-siblings
+  document.querySelectorAll('.rv').forEach(el=>{
+    const sibs=[...el.parentElement.children].filter(c=>c.classList.contains('rv'));
+    const i=sibs.indexOf(el);
+    if(i>0) el.style.transitionDelay=Math.min(i,6)*85+'ms';
+  });
+
   // scroll reveal
   const io=new IntersectionObserver((es)=>{
     es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
   },{threshold:.12});
   document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+  // count-up numbers
+  const fmt=n=>n.toLocaleString('en-US');
+  function countUp(el){
+    const to=+el.dataset.to, dur=1500, t0=performance.now();
+    function step(t){
+      let p=Math.min((t-t0)/dur,1); p=1-Math.pow(1-p,3);
+      el.textContent=fmt(Math.floor(to*p));
+      if(p<1) requestAnimationFrame(step); else el.textContent=fmt(to);
+    }
+    requestAnimationFrame(step);
+  }
+  const co=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){countUp(e.target);co.unobserve(e.target)}})
+  },{threshold:.6});
+  document.querySelectorAll('.stat .num').forEach(el=>co.observe(el));
+
+  // scroll progress bar
+  const bar=document.getElementById('progress');
+  const onScroll=()=>{
+    const h=document.documentElement;
+    const max=h.scrollHeight-h.clientHeight;
+    bar.style.width=(max>0?(h.scrollTop/max*100):0)+'%';
+  };
+  document.addEventListener('scroll',onScroll,{passive:true}); onScroll();
 
   // sticky CTA after hero
   const sticky=document.getElementById('sticky');
