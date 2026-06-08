@@ -8,17 +8,18 @@
 <meta name="description" content="用7天，把你的大脑和经验封装进AI，打造一个24小时不下班的「一人公司」系统。三城开课·深圳/北京/上海。">
 <style>
   :root{
-    --bg:#0c0a14;
-    --bg2:#13101f;
-    --card:#1a1626;
-    --line:rgba(255,255,255,.08);
-    --txt:#ece9f5;
-    --mut:#a39fb8;
-    --dim:#6f6a85;
+    --bg:#faf8fd;
+    --bg2:#f1ecfa;
+    --card:#ffffff;
+    --line:rgba(28,24,48,.10);
+    --txt:#1f1b33;
+    --mut:#5c567a;
+    --dim:#9a95b0;
     --acc:#8b5cf6;
-    --acc2:#c084fc;
-    --grad:linear-gradient(135deg,#8b5cf6,#c084fc);
-    --warn:#fb923c;
+    --acc2:#7c3aed;
+    --grad:linear-gradient(135deg,#7c5cf0,#a855f7);
+    --warn:#ea6a16;
+    --shadow:0 8px 28px rgba(91,60,200,.08);
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html{scroll-behavior:smooth}
@@ -46,9 +47,9 @@
     min-height:100svh;display:flex;flex-direction:column;justify-content:center;
     padding:90px 0 70px;position:relative;overflow:hidden;
   }
-  .glow{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;z-index:0;pointer-events:none}
-  .g1{width:340px;height:340px;background:#7c3aed;top:-80px;right:-110px}
-  .g2{width:300px;height:300px;background:#c084fc;bottom:40px;left:-130px;opacity:.32}
+  .glow{position:absolute;border-radius:50%;filter:blur(80px);opacity:.28;z-index:0;pointer-events:none}
+  .g1{width:340px;height:340px;background:#a855f7;top:-80px;right:-110px}
+  .g2{width:300px;height:300px;background:#c084fc;bottom:40px;left:-130px;opacity:.22}
   .hero .wrap{position:relative;z-index:1}
   .logo{display:inline-flex;align-items:center;gap:9px;margin-bottom:34px}
   .logo .mark{width:36px;height:36px;border-radius:50%;object-fit:contain;box-shadow:0 6px 20px rgba(139,92,246,.45)}
@@ -102,7 +103,7 @@
   /* schedule */
   .sched{background:var(--bg2)}
   .day{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:18px;margin-bottom:12px;position:relative;overflow:hidden}
-  .day .tag{position:absolute;top:0;right:0;font-size:11px;font-weight:700;color:#0c0a14;background:var(--acc2);padding:4px 11px;border-bottom-left-radius:10px}
+  .day .tag{position:absolute;top:0;right:0;font-size:11px;font-weight:700;color:#fff;background:var(--grad);padding:4px 11px;border-bottom-left-radius:10px}
   .day .d{font-size:13px;font-weight:700;color:var(--acc2);letter-spacing:.05em}
   .day h4{font-size:18px;font-weight:800;margin:3px 0 10px}
   .day p{font-size:14px;margin-bottom:10px}
@@ -174,8 +175,8 @@
   .signup .step b{color:var(--acc2)}
 
   /* ending */
-  .ending{background:linear-gradient(180deg,var(--bg2),#0c0a14);text-align:center;padding:80px 0}
-  .ending .glow{opacity:.4}
+  .ending{background:linear-gradient(180deg,var(--bg2),#e7dffb);text-align:center;padding:80px 0}
+  .ending .glow{opacity:.3}
   .ending p{font-size:18px;line-height:1.7;color:var(--mut);margin-bottom:10px}
   .ending .punch{font-size:26px;font-weight:900;line-height:1.45;color:var(--txt);margin:24px 0}
   .ending .punch .ai{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
@@ -187,8 +188,8 @@
   .sticky{
     position:fixed;left:0;right:0;bottom:0;z-index:50;
     padding:12px 18px calc(12px + env(safe-area-inset-bottom));
-    background:rgba(12,10,20,.82);backdrop-filter:blur(14px);
-    border-top:1px solid var(--line);transform:translateY(120%);transition:transform .35s ease
+    background:rgba(255,255,255,.85);backdrop-filter:blur(14px) saturate(1.4);
+    border-top:1px solid var(--line);box-shadow:0 -6px 24px rgba(91,60,200,.08);transform:translateY(120%);transition:transform .35s ease
   }
   .sticky.show{transform:none}
   .sticky .wrap{max-width:560px;padding:0;display:flex;align-items:center;gap:12px}
@@ -207,6 +208,10 @@
   .videowrap{position:relative}
   .outro{margin-top:24px}
   .outro video{width:100%;border-radius:16px;border:1px solid var(--line);display:block}
+  /* light-theme depth */
+  .pain,.day,.case,.city,.price-card{box-shadow:var(--shadow)}
+  .info{background:var(--card);box-shadow:var(--shadow)}
+  .media,.banner{box-shadow:var(--shadow)}
   @media(min-width:600px){
     .hero h1{font-size:48px}
     body{font-size:16.5px}
